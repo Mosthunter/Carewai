@@ -34,13 +34,20 @@ dependencies:
   flutter_local_notifications: ^1.4.4+2
   path_provider: ^1.6.11
   auto_refresh_list_view: ^1.1.0
-  
+  fluttertoast: ^7.0.1
+  flutter_launcher_icons: ^0.7.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter_launcher_name:
-  name: "CareWai"
+  name: "RemindMe"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logorm.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

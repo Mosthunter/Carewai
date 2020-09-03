@@ -1,5 +1,4 @@
-import 'package:cdmmm/page/List/Maincore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cdmmm/pagenew/mainpage.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -17,7 +16,7 @@ class _MyHomePageState extends State<MyHomePage> {
         width: a.width,
         height: a.height,
         child: Image.asset(
-          "assets/carewai.png",
+          "assets/screen.png",
           fit: BoxFit.fill,
         ),
       ),
@@ -25,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Maincore(),
+              builder: (context) => MainPage(),
             ));
       },
     ));

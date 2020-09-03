@@ -1,5 +1,5 @@
-import 'package:cdmmm/page/List/Listpatient.dart';
-import 'package:cdmmm/page/add/addbed.dart';
+import 'package:cdmmm/pagenew/add/addbed.dart';
+import 'package:cdmmm/widget/toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +17,14 @@ class _AddpatientState extends State<Addpatient> {
   String date;
   String timeclock;
   String name;
+  String surname;
+  String op;
+  String sop;
   String dateborn;
   String np = "200";
   String numberone;
   String sex;
+
   int born;
 
   int timenow = DateTime.now().year;
@@ -78,6 +82,7 @@ class _AddpatientState extends State<Addpatient> {
                 children: <Widget>[
                   Container(
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -461,7 +466,7 @@ class _AddpatientState extends State<Addpatient> {
                                         color: Color(0xff579A62),
                                         borderRadius: BorderRadius.circular(
                                             a.width / 30)),
-                                    child: TextField(
+                                    child: TextFormField(
                                       controller: nameContrller,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
@@ -470,6 +475,14 @@ class _AddpatientState extends State<Addpatient> {
                                       ),
                                       decoration: InputDecoration(
                                           border: InputBorder.none),
+                                      validator: (value) {
+                                        return value.trim() == ""
+                                            ? Taoast().toast("กรุณาใส่ชื่อ")
+                                            : null;
+                                      },
+                                      onSaved: (value) {
+                                        name = value.trim();
+                                      },
                                     )),
                               ),
                             )
@@ -501,7 +514,7 @@ class _AddpatientState extends State<Addpatient> {
                                       color: Color(0xff579A62),
                                       borderRadius:
                                           BorderRadius.circular(a.width / 30)),
-                                  child: TextField(
+                                  child: TextFormField(
                                     controller: surnameContrller,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
@@ -511,6 +524,14 @@ class _AddpatientState extends State<Addpatient> {
                                     ),
                                     decoration: InputDecoration(
                                         border: InputBorder.none),
+                                    validator: (value) {
+                                      return value.trim() == ""
+                                          ? Taoast().toast("กรุณาใส่นามสกุล")
+                                          : null;
+                                    },
+                                    onSaved: (value) {
+                                      surname = value.trim();
+                                    },
                                   )),
                             )
                           ],
@@ -544,7 +565,7 @@ class _AddpatientState extends State<Addpatient> {
                                 color: Color(0xff579A62),
                                 borderRadius:
                                     BorderRadius.circular(a.width / 30)),
-                            child: TextField(
+                            child: TextFormField(
                               controller: opContrller,
                               textAlign: TextAlign.start,
                               style: TextStyle(
@@ -553,6 +574,14 @@ class _AddpatientState extends State<Addpatient> {
                               ),
                               decoration:
                                   InputDecoration(border: InputBorder.none),
+                              validator: (value) {
+                                return value.trim() == ""
+                                    ? Taoast().toast("กรุณาใส่อาการเบื้องต้น")
+                                    : null;
+                              },
+                              onSaved: (value) {
+                                op = value.trim();
+                              },
                             )),
                       )
                     ],
@@ -584,7 +613,7 @@ class _AddpatientState extends State<Addpatient> {
                                 color: Color(0xff579A62),
                                 borderRadius:
                                     BorderRadius.circular(a.width / 30)),
-                            child: TextField(
+                            child: TextFormField(
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 color: Colors.white,
@@ -634,41 +663,58 @@ class _AddpatientState extends State<Addpatient> {
                                   )),
                             ),
                             onTap: () {
-                              String numberone;
-                              Firestore.instance
-                                  .collection('users')
-                                  .getDocuments()
-                                  .then((myDocuments) {
-                                setState(() {
-                                  numberone =
-                                      "${myDocuments.documents.length + 1}";
-                                });
-                              });
-                              Firestore.instance
-                                  .collection("users")
-                                  .document(widget.nummm)
-                                  .setData({
-                                'วันเดือนปี': "${widget.date}",
-                                'เวลา': "${widget.time}",
-                                'เพศ': "${sex}",
-                                'วันเดือนปีเกิด': "${dateborn}",
-                                'อายุ': "${timenow - born}",
-                                'ชื่อ': "${nameContrller.text.toString()}",
-                                'นามสกุล':
-                                    "${surnameContrller.text.toString()}",
-                                'อาการเบื้องต้น':
-                                    "${opContrller.text.toString()}",
-                                'หมายเหตุ': "${sopContrller.text.toString()}",
-                                'วินิจฉัย': ""
-                              });
-                              Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Addbed(
-                                      nummer: widget.nummm,
-                                    ),
-                                  ));
+                              if (_key.currentState.validate()) {
+                                _key.currentState.save();
+                                if (sex == null ||
+                                    timenow == null ||
+                                    born == null ||
+                                    dateborn == null) {
+                                  return Taoast()
+                                      .toast("กรุณากรอกข้อมูลให้ครบถ่วน");
+                                } else {
+                                  Firestore.instance
+                                      .collectionGroup('medicine')
+                                      .getDocuments()
+                                      .then((value) {
+                                    Firestore.instance
+                                        .collectionGroup('users')
+                                        .getDocuments()
+                                        .then((value) {
+                                      print(value.documents.length);
+                                      Firestore.instance
+                                          .collection("data")
+                                          .document("gD0sKLm25r6kw3QhVyRo")
+                                          .updateData({
+                                        "numbed": "${value.documents.length}"
+                                      });
+                                    });
+                                    Firestore.instance
+                                        .collection("users")
+                                        .document(widget.nummm)
+                                        .setData({
+                                      'วันเดือนปี': "${widget.date}",
+                                      'เวลา': "${widget.time}",
+                                      'เพศ': "${sex}",
+                                      'วันเดือนปีเกิด': "${dateborn}",
+                                      'อายุ': "${timenow - born}",
+                                      'ชื่อ': "${name}",
+                                      'นามสกุล': "${surname}",
+                                      'อาการเบื้องต้น': "${op}",
+                                      'หมายเหตุ':
+                                          "${sopContrller.text.toString()}",
+                                      'วินิจฉัย': ""
+                                    });
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Addbed(
+                                            nummer: widget.nummm,
+                                          ),
+                                        ));
+                                  });
+                                }
+                              }
                             })
                       ],
                     ),

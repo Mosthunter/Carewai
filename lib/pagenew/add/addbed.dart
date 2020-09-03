@@ -1,4 +1,3 @@
-import 'package:cdmmm/page/List/Listpatient.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -40,8 +39,13 @@ class _AddbedState extends State<Addbed> {
         child: StreamBuilder(
             stream: Firestore.instance.collection("pbeds").snapshots(),
             builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                const Text("Loading");
+              if (!snapshot.hasData &&
+                  snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                    child: Text(
+                  "Loading",
+                  style: TextStyle(fontSize: a.width / 20),
+                ));
               } else {
                 return GridView.builder(
                   itemCount: snapshot.data.documents.length,
@@ -119,11 +123,6 @@ class _AddbedState extends State<Addbed> {
                                     'numberbed': beds.documentID.toString()
                                   });
                                   Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Listpatient(),
-                                      ));
                                 } else {
                                   print("null");
                                 }

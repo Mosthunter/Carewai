@@ -30,10 +30,10 @@ class _CardpatientState extends State<Cardpatient> {
           color: Color(0xffFFFAE5),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: Colors.grey.withOpacity(0.1),
               spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(2, 2), // changes position of shadow
+              blurRadius: 10,
+              offset: Offset(2, 3), // changes position of shadow
             ),
           ],
         ),
@@ -42,15 +42,12 @@ class _CardpatientState extends State<Cardpatient> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Text(
-                  "เตียงผู้ป่วย : ",
-                  style: TextStyle(fontSize: a.width / 30),
-                ),
                 Text(
                   widget.number,
                   style: TextStyle(
-                      color: Color(0xff579A62), fontSize: a.width / 30),
+                      color: Color(0xff579B62), fontSize: a.width / 25),
                 )
               ],
             ),
@@ -58,12 +55,13 @@ class _CardpatientState extends State<Cardpatient> {
               children: <Widget>[
                 Text(
                   "ชื่อ : ",
-                  style: TextStyle(fontSize: a.width / 30),
+                  style: TextStyle(
+                      color: Color(0xff579B62), fontSize: a.width / 30),
                 ),
                 Text(
                   widget.name,
                   style: TextStyle(
-                      color: Color(0xff579A62), fontSize: a.width / 30),
+                      color: Color(0xff579B62), fontSize: a.width / 30),
                 )
               ],
             ),
@@ -71,12 +69,13 @@ class _CardpatientState extends State<Cardpatient> {
               children: <Widget>[
                 Text(
                   "นามสกุล : ",
-                  style: TextStyle(fontSize: a.width / 30),
+                  style: TextStyle(
+                      color: Color(0xff579B62), fontSize: a.width / 30),
                 ),
                 Text(
                   widget.surname,
                   style: TextStyle(
-                      color: Color(0xff579A62), fontSize: a.width / 30),
+                      color: Color(0xff579B62), fontSize: a.width / 30),
                 )
               ],
             ),
@@ -84,12 +83,13 @@ class _CardpatientState extends State<Cardpatient> {
               children: <Widget>[
                 Text(
                   "อายุ : ",
-                  style: TextStyle(fontSize: a.width / 30),
+                  style: TextStyle(
+                      color: Color(0xff579B62), fontSize: a.width / 30),
                 ),
                 Text(
                   widget.old,
                   style: TextStyle(
-                      color: Color(0xff579A62), fontSize: a.width / 30),
+                      color: Color(0xff579B62), fontSize: a.width / 30),
                 )
               ],
             ),
@@ -100,12 +100,13 @@ class _CardpatientState extends State<Cardpatient> {
                 children: <Widget>[
                   Text(
                     "อาการเบื้องต้น : ",
-                    style: TextStyle(fontSize: a.width / 30),
+                    style: TextStyle(
+                        color: Color(0xff579B62), fontSize: a.width / 30),
                   ),
                   Text(
                     widget.op,
                     style: TextStyle(
-                        color: Color(0xff579A62), fontSize: a.width / 30),
+                        color: Color(0xff579B62), fontSize: a.width / 30),
                   )
                 ],
               ),

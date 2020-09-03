@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../../widget/CardAdd.dart';
-import '../../widget/CardMedicine.dart';
-import 'L.dart';
+import '../widget/CardAdd.dart';
+import '../widget/CardMedicine.dart';
 
 class Listpp extends StatefulWidget {
   final String numer;
@@ -194,74 +193,74 @@ class _ListppState extends State<Listpp> {
                                     }
                                   },
                                 ),
-                          // InkWell(
-                          //   child: Container(
-                          //       width: a.width / 4,
-                          //       height: a.width / 8,
-                          //       alignment: Alignment.center,
-                          //       child: Text(
-                          //         "ลบเตียง",
-                          //         style: TextStyle(
-                          //             color: Colors.white,
-                          //             fontWeight: FontWeight.bold,
-                          //             fontSize: a.width / 25),
-                          //       ),
-                          //       decoration: BoxDecoration(
-                          //           boxShadow: [
-                          //             BoxShadow(
-                          //               color: Colors.grey.withOpacity(0.5),
-                          //               spreadRadius: 2,
-                          //               blurRadius: 10,
-                          //               offset: Offset(
-                          //                   0, 3), // changes position of shadow
-                          //             ),
-                          //           ],
-                          //           color: Colors.red,
-                          //           borderRadius:
-                          //               BorderRadius.circular(a.width))),
-                          //   onTap: () {
-                          //     showDialog(
-                          //       context: context,
-                          //       child: new AlertDialog(
-                          //         title: const Text("แจ้งเตือน !!!!"),
-                          //         content: Text(
-                          //             "คุณกำลังยกเลิกเตียงคนไข้ต้องการดำเนินต่อไหม"),
-                          //         actions: [
-                          //           Container(
-                          //             width: a.width,
-                          //             child: Row(
-                          //               mainAxisAlignment:
-                          //                   MainAxisAlignment.spaceAround,
-                          //               children: <Widget>[
-                          //                 new FlatButton(
-                          //                   child: const Text("ยกเลิก"),
-                          //                   onPressed: () =>
-                          //                       Navigator.pop(context),
-                          //                 ),
-                          //                 new FlatButton(
-                          //                     child: const Text("ตกลง"),
-                          //                     onPressed: () {
-                          //                       Firestore.instance
-                          //                           .collection("users")
-                          //                           .document(widget.numer)
-                          //                           .delete();
+                          /* InkWell(
+                            child: Container(
+                                width: a.width / 4,
+                                height: a.width / 8,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "ลบเตียง",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: a.width / 25),
+                                ),
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 2,
+                                        blurRadius: 10,
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                    color: Colors.red,
+                                    borderRadius:
+                                        BorderRadius.circular(a.width))),
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                child: new AlertDialog(
+                                  title: const Text("แจ้งเตือน !!!!"),
+                                  content: Text(
+                                      "คุณกำลังยกเลิกเตียงคนไข้ต้องการดำเนินต่อไหม"),
+                                  actions: [
+                                    Container(
+                                      width: a.width,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          new FlatButton(
+                                            child: const Text("ยกเลิก"),
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                          ),
+                                          new FlatButton(
+                                              child: const Text("ตกลง"),
+                                              onPressed: () {
+                                                Firestore.instance
+                                                    .collection("users")
+                                                    .document(widget.numer)
+                                                    .delete();
 
-                          //                       Firestore.instance
-                          //                           .collection('pbeds')
-                          //                           .document(widget.status)
-                          //                           .updateData(
-                          //                               {'status': false});
-                          //                       Navigator.pop(context);
-                          //                       Navigator.pop(context);
-                          //                     }),
-                          //               ],
-                          //             ),
-                          //           )
-                          //         ],
-                          //       ),
-                          //     );
-                          //   },
-                          // ),
+                                                Firestore.instance
+                                                    .collection('pbeds')
+                                                    .document(widget.status)
+                                                    .updateData(
+                                                        {'status': false});
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                              }),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          ), */
                           /*
                             Firestore.instance
                                     .collection("users")
@@ -332,8 +331,6 @@ class _ListppState extends State<Listpp> {
                                           borderRadius:
                                               BorderRadius.circular(a.width))),
                                   onTap: () {
-                                    print("most: " +
-                                        seeContrller.text.toString());
                                     if (seeContrller.text.toString() == "") {
                                       setState(() {
                                         page = 3;
@@ -602,7 +599,9 @@ class _ListppState extends State<Listpp> {
                                     borderRadius:
                                         BorderRadius.circular(a.width / 30)),
                                 child: Text(
-                                  snapshot.data['หมายเหตุ'],
+                                  snapshot.data['หมายเหตุ'] == "null"
+                                      ? ""
+                                      : "${snapshot.data['หมายเหตุ']}",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: a.width / 20),
@@ -721,7 +720,11 @@ class _ListppState extends State<Listpp> {
     Size a = MediaQuery.of(context).size;
     return Container(
         color: Color(0xffFFFAE5),
-        padding: EdgeInsets.all(a.width / 30),
+        padding: EdgeInsets.only(
+            top: a.width / 30,
+            left: a.width / 30,
+            right: a.width / 30,
+            bottom: a.width / 8),
         child: StreamBuilder(
             stream: Firestore.instance
                 .collection("users")
@@ -741,12 +744,22 @@ class _ListppState extends State<Listpp> {
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot users = snapshot.data.documents[index];
-                    return InkWell(
-                      child: CardMedicine(
-                          n1: "${users['ชื่อยา']}",
-                          n2: "${users['จำนวน']}",
-                          n3: "${users['วันเดือนปี']}",
-                          n4: "${users['เวลา']}"),
+                    return Column(
+                      children: <Widget>[
+                        InkWell(
+                          child: CardMedicine(
+                            n1: "${users['ชื่อยา']}",
+                            n2: "${users['จำนวน']}",
+                            n3: "${users['วันเดือนปี']}",
+                            n4: "${users['เวลา']}",
+                            numbed: "${users['เตียงที่']}",
+                          ),
+                        ),
+                        Container(
+                          width: a.width,
+                          height: a.width / 20,
+                        )
+                      ],
                     );
                   },
                 );
